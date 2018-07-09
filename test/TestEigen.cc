@@ -5,7 +5,9 @@
 #include <Eigen/Core>
 
 #include <complex>
+#include <fstream>
 #include <sstream>
+#include <streambuf>
 
 namespace MatrixMerchant {
 
@@ -523,8 +525,9 @@ TEST_CASE( "Eigen: Write MatrixXd", "[Writer][Eigen]" ) {
     Writer::writeStream(matrix, act_stream);
     std::string act = act_stream.str();
 
-    std::string exp(std::istreambuf_iterator<char>(
-        std::ifstream("./data/array_real_general.mtx")),
+
+    std::ifstream exp_stream("./data/array_real_general.mtx");
+    std::string exp((std::istreambuf_iterator<char>(exp_stream)),
         std::istreambuf_iterator<char>());
 
     CHECK(act == exp);
