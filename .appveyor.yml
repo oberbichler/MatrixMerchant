@@ -1,0 +1,15 @@
+version: 0.1.{build}
+image: Visual Studio 2017
+configuration: release
+platform: x64
+clone_folder: c:\MatrixMerchant
+install:
+  - appveyor DownloadFile http://bitbucket.org/eigen/eigen/get/3.3.4.zip -FileName eigen.zip
+  - 7z x eigen.zip -oc:\eigen
+build_script:
+  - md build
+  - cmake . -Bbuild -DEIGEN3_ROOT="c:\eigen"
+  - cmake --build build --target ALL_BUILD --config Release
+test_script:
+  - cd c:\MatrixMerchant
+  - c:\MatrixMerchant\build\test\Release\run_tests.exe
