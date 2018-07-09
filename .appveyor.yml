@@ -3,6 +3,8 @@ image: Visual Studio 2017
 configuration: release
 platform: x64
 clone_folder: c:\MatrixMerchant
+cache:
+  - c:\eigen
 install:
   - appveyor DownloadFile http://bitbucket.org/eigen/eigen/get/3.3.4.zip -FileName eigen.zip
   - 7z x eigen.zip -oc:\eigen
