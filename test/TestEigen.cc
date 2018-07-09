@@ -195,7 +195,7 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, 1, Eigen::Dynamic>>
 TEST_CASE("Eigen: Array real General as MatrixXd", "[Reader][Eigen]")
 {
     using Matrix = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>;
-    using Reader = typename MatrixMerchant::Reader;
+    using Reader = MatrixMerchant::Reader;
 
     Matrix matrix;
 
