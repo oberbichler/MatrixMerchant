@@ -1,1 +1,2 @@
 # MatrixMerchant
+[![Build Status](https://travis-ci.com/oberbichler/MatrixMerchant.svg?branch=master)](https://travis-ci.com/oberbichler/MatrixMerchant) [![Build status](https://ci.appveyor.com/api/projects/status/83gody5w464a78tm/branch/master?svg=true)](https://ci.appveyor.com/project/oberbichler/matrixmerchant/branch/master) [![Build Status](https://travis-ci.com/oberbichler/MatrixMerchant.svg?branch=master)](https://travis-ci.com/oberbichler/MatrixMerchant)
