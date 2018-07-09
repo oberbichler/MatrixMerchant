@@ -286,7 +286,7 @@ public:
         TStream& stream
     )
     {
-        using Scalar = MatrixBuilder<TMatrix>::ScalarType;
+        using Scalar = typename MatrixBuilder<TMatrix>::ScalarType;
 
         auto nbRows = MatrixBuilder<TMatrix>::nbRows(matrix);
         auto nbCols = MatrixBuilder<TMatrix>::nbCols(matrix);
