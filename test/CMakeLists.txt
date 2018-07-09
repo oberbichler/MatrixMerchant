@@ -1,7 +1,5 @@
 project(run_tests)
 
-add_definitions(-DEIGEN_USE_MKL_ALL)
-
 add_executable(run_tests main.cc
     TestEigen.cc
 )
