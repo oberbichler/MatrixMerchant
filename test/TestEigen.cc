@@ -5,6 +5,9 @@
 #include <Eigen/Core>
 
 #include <complex>
+#include <fstream>
+#include <sstream>
+#include <streambuf>
 
 namespace MatrixMerchant {
 
@@ -194,7 +197,7 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, 1, Eigen::Dynamic>>
 TEST_CASE("Eigen: Array real General as MatrixXd", "[Reader][Eigen]")
 {
     using Matrix = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>;
-    using Reader = typename MatrixMerchant::Reader;
+    using Reader = MatrixMerchant::Reader;
 
     Matrix matrix;
 
@@ -495,4 +498,37 @@ TEST_CASE("Eigen: Vector real row as row VectorXd", "[Reader][Eigen]")
     REQUIRE(matrix[1] == -2.4010370783465085);
     REQUIRE(matrix[2] == 9.0628790375549286);
     REQUIRE(matrix[3] == -7.3354743327476690);
+}
+
+TEST_CASE( "Eigen: Write MatrixXd", "[Writer][Eigen]" ) {
+    using Scalar = double;
+    using Matrix = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Reader = MatrixMerchant::Reader;
+    using Writer = MatrixMerchant::Writer;
+    
+    Matrix matrix(3, 4);
+
+    matrix(0, 0) = -1.7874030527951525;
+    matrix(1, 0) = 2.8017662727841071;
+    matrix(2, 0) = -7.3458785314655870;
+    matrix(0, 1) = -2.4010370783465085;
+    matrix(1, 1) = 9.1842295135688801;
+    matrix(2, 1) = 4.4479713459839871;
+    matrix(0, 2) = 9.0628790375549286;
+    matrix(1, 2) = -3.7799237041860287;
+    matrix(2, 2) = 5.5080306442042399;
+    matrix(0, 3) = -7.3354743327476690;
+    matrix(1, 3) = -3.3000793596121447;
+    matrix(2, 3) = 5.7081113423916179;
+
+    std::stringstream act_stream;
+    Writer::writeStream(matrix, act_stream);
+    std::string act = act_stream.str();
+
+
+    std::ifstream exp_stream("./data/array_real_general.mtx");
+    std::string exp((std::istreambuf_iterator<char>(exp_stream)),
+        std::istreambuf_iterator<char>());
+
+    CHECK(act == exp);
 }
