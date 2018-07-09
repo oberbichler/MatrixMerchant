@@ -268,13 +268,13 @@ private:
     template <typename T>
     struct precision<typename std::complex<T>>
     {
-        static const size_t value = std::numeric_limits<T>::digits10 + 1;
+        static const size_t value = std::numeric_limits<T>::digits10 + 2; // FIXME check for correctness
     };
 
     template <typename T>
     struct precision
     {
-        static const size_t value = std::numeric_limits<T>::digits10 + 1;
+        static const size_t value = std::numeric_limits<T>::digits10 + 2; // FIXME check for correctness
     };
 
 public:
