@@ -83,7 +83,7 @@ class Reader
     struct readCoordinates
     {
         template <typename TStream>
-        static auto
+        static std::pair<TIndex, TIndex>
         from(
             TStream& input
         )
