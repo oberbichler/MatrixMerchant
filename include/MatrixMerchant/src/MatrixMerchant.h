@@ -215,7 +215,6 @@ struct ArrayEntry<std::complex<TScalar>>
     }
 };
 
-
 template <typename TScalar>
 struct Precision;
 
@@ -287,7 +286,8 @@ public:
 
         tokens = GetTokens(line);
 
-        if (tokens.size() != 5 || tokens[0] != "%%MatrixMarket" || tokens[1] != "matrix") {
+        if (tokens.size() != 5 || tokens[0] != "%%MatrixMarket" ||
+            tokens[1] != "matrix") {
             throw std::runtime_error("MatrixMarket banner invalid");
         }
 
@@ -409,7 +409,7 @@ public:
 
         ReadFromStream(matrix, file);
     }
-};
+}; // class Reader
 
 template <class T>
 struct is_complex : public std::false_type { };
@@ -459,17 +459,19 @@ public:
 
             for (std::size_t col = 0; col < cols; col++) {
                 for (std::size_t row = 0; row < rows; row++) {
-                    ScalarType value = MatrixBuilder<TMatrix>::GetValue(matrix, row, col);
+                    ScalarType value = MatrixBuilder<TMatrix>::GetValue(matrix,
+                        row, col);
 
                     CoordEntry<ScalarType>::Write(stream, row, col, value);
                 }
             }
-        } else {
+        } else { // array
             stream << rows << " " << cols << "\n";
 
             for (std::size_t col = 0; col < cols; col++) {
                 for (std::size_t row = 0; row < rows; row++) {
-                    ScalarType value = MatrixBuilder<TMatrix>::GetValue(matrix, row, col);
+                    ScalarType value = MatrixBuilder<TMatrix>::GetValue(matrix,
+                        row, col);
 
                     ArrayEntry<ScalarType>::Write(stream, value);
                 }
@@ -489,6 +491,6 @@ public:
 
         file.close();
     }
-};
+}; // class Writer
 
 } // namespace MatrixMerchant
