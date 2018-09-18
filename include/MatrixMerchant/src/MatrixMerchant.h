@@ -1,9 +1,9 @@
 #pragma once
 
 #include <complex>
-#include <istream>
-#include <iostream>
+#include <fstream>
 #include <iomanip>
+#include <istream>
 #include <limits>
 
 namespace MatrixMerchant {
@@ -16,6 +16,42 @@ TryParse(
     char* end;
 
     const std::size_t parsedValue = std::strtoull(text.c_str(), &end, 10);
+
+    const bool success = (end == &text[text.size()]);
+
+    if (success) {
+        value = parsedValue;
+    }
+
+    return success;
+}
+
+static bool
+TryParse(
+    const std::string& text,
+    int& value)
+{
+    char* end;
+
+    const int parsedValue = (int)std::strtol(text.c_str(), &end, 10);
+
+    const bool success = (end == &text[text.size()]);
+
+    if (success) {
+        value = parsedValue;
+    }
+
+    return success;
+}
+
+static bool
+TryParse(
+    const std::string& text,
+    float& value)
+{
+    char* end;
+
+    const float parsedValue = std::strtof(text.c_str(), &end);
 
     const bool success = (end == &text[text.size()]);
 
@@ -179,7 +215,6 @@ struct ArrayEntry<std::complex<TScalar>>
     }
 };
 
-
 template <typename TScalar>
 struct Precision;
 
@@ -251,7 +286,8 @@ public:
 
         tokens = GetTokens(line);
 
-        if (tokens.size() != 5 || tokens[0] != "%%MatrixMarket" || tokens[1] != "matrix") {
+        if (tokens.size() != 5 || tokens[0] != "%%MatrixMarket" ||
+            tokens[1] != "matrix") {
             throw std::runtime_error("MatrixMarket banner invalid");
         }
 
@@ -275,10 +311,6 @@ public:
             throw std::runtime_error("MatrixMarket symmetry '" + symmetry
                 + "' invalid");
         }
-
-        std::cout << "storage:  " << storage << std::endl;
-        std::cout << "type:     " << type << std::endl;
-        std::cout << "symmetry: " << symmetry << std::endl;
 
         // --- read matrix size
 
@@ -309,10 +341,6 @@ public:
         if (storage == "coordinate" && !TryParse(tokens[2], nonZeros)) {
             throw std::runtime_error("MatrixMarket matrix size invalid");
         }
-
-        std::cout << "rows:     " << rows << std::endl;
-        std::cout << "cols:     " << cols << std::endl;
-        std::cout << "nonZeros: " << nonZeros << std::endl;
 
         // --- read entries
 
@@ -376,12 +404,12 @@ public:
         std::ifstream file(filename.c_str());
 
         if (!file) {
-            throw std::exception("Invalid file");
+            throw std::runtime_error("Invalid file");
         }
 
         ReadFromStream(matrix, file);
     }
-};
+}; // class Reader
 
 template <class T>
 struct is_complex : public std::false_type { };
@@ -431,17 +459,19 @@ public:
 
             for (std::size_t col = 0; col < cols; col++) {
                 for (std::size_t row = 0; row < rows; row++) {
-                    ScalarType value = MatrixBuilder<TMatrix>::GetValue(matrix, row, col);
+                    ScalarType value = MatrixBuilder<TMatrix>::GetValue(matrix,
+                        row, col);
 
                     CoordEntry<ScalarType>::Write(stream, row, col, value);
                 }
             }
-        } else {
+        } else { // array
             stream << rows << " " << cols << "\n";
 
             for (std::size_t col = 0; col < cols; col++) {
                 for (std::size_t row = 0; row < rows; row++) {
-                    ScalarType value = MatrixBuilder<TMatrix>::GetValue(matrix, row, col);
+                    ScalarType value = MatrixBuilder<TMatrix>::GetValue(matrix,
+                        row, col);
 
                     ArrayEntry<ScalarType>::Write(stream, value);
                 }
@@ -461,6 +491,6 @@ public:
 
         file.close();
     }
-};
+}; // class Writer
 
 } // namespace MatrixMerchant
