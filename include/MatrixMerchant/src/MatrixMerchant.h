@@ -412,7 +412,7 @@ public:
         std::ifstream file(filename.c_str());
 
         if (!file) {
-            throw std::exception("Invalid file");
+            throw std::runtime_error("Invalid file");
         }
 
         ReadFromStream(matrix, file);
