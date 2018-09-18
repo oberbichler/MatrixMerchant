@@ -29,6 +29,42 @@ TryParse(
 static bool
 TryParse(
     const std::string& text,
+    int& value)
+{
+    char* end;
+
+    const int parsedValue = (int)std::strtol(text.c_str(), &end, 10);
+
+    const bool success = (end == &text[text.size()]);
+
+    if (success) {
+        value = parsedValue;
+    }
+
+    return success;
+}
+
+static bool
+TryParse(
+    const std::string& text,
+    float& value)
+{
+    char* end;
+
+    const float parsedValue = std::strtof(text.c_str(), &end);
+
+    const bool success = (end == &text[text.size()]);
+
+    if (success) {
+        value = parsedValue;
+    }
+
+    return success;
+}
+
+static bool
+TryParse(
+    const std::string& text,
     double& value)
 {
     char* end;
