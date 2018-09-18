@@ -10,7 +10,7 @@
 #include <streambuf>
 
 TEST_CASE("Eigen: Array real General as MatrixXd",
-    "[Eigen][Reader][Array][Real][General]")
+    "[Eigen][Reader][Array][Real][General][Double]")
 {
     using Matrix = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>;
     using Reader = MatrixMerchant::Reader;
@@ -34,6 +34,60 @@ TEST_CASE("Eigen: Array real General as MatrixXd",
     REQUIRE(matrix(0, 3) == -7.3354743327476690);
     REQUIRE(matrix(1, 3) == -3.3000793596121447);
     REQUIRE(matrix(2, 3) == 5.7081113423916179);
+}
+
+TEST_CASE("Eigen: Array real General as MatrixXf",
+    "[Eigen][Reader][Array][Real][General][Float]")
+{
+    using Matrix = Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic>;
+    using Reader = MatrixMerchant::Reader;
+
+    Matrix matrix;
+
+    Reader::ReadFromFile(matrix, "./data/array_real_general_3_4.mtx");
+
+    REQUIRE( matrix.rows() == 3 );
+    REQUIRE( matrix.cols() == 4 );
+
+    REQUIRE( matrix(0, 0) == -1.7874030527951525f );
+    REQUIRE( matrix(1, 0) ==  2.8017662727841071f );
+    REQUIRE( matrix(2, 0) == -7.3458785314655870f );
+    REQUIRE( matrix(0, 1) == -2.4010370783465085f );
+    REQUIRE( matrix(1, 1) ==  9.1842295135688801f );
+    REQUIRE( matrix(2, 1) ==  4.4479713459839871f );
+    REQUIRE( matrix(0, 2) ==  9.0628790375549286f );
+    REQUIRE( matrix(1, 2) == -3.7799237041860287f );
+    REQUIRE( matrix(2, 2) ==  5.5080306442042399f );
+    REQUIRE( matrix(0, 3) == -7.3354743327476690f );
+    REQUIRE( matrix(1, 3) == -3.3000793596121447f );
+    REQUIRE( matrix(2, 3) ==  5.7081113423916179f );
+}
+
+TEST_CASE("Eigen: Array real General as MatrixXi",
+    "[Eigen][Reader][Array][Real][General][Integer]")
+{
+    using Matrix = Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic>;
+    using Reader = MatrixMerchant::Reader;
+
+    Matrix matrix;
+
+    Reader::ReadFromFile(matrix, "./data/array_real_general_3_4_int.mtx");
+
+    REQUIRE( matrix.rows() == 3 );
+    REQUIRE( matrix.cols() == 4 );
+
+    REQUIRE( matrix(0, 0) == -1 );
+    REQUIRE( matrix(1, 0) ==  2 );
+    REQUIRE( matrix(2, 0) == -7 );
+    REQUIRE( matrix(0, 1) == -2 );
+    REQUIRE( matrix(1, 1) ==  9 );
+    REQUIRE( matrix(2, 1) ==  4 );
+    REQUIRE( matrix(0, 2) ==  9 );
+    REQUIRE( matrix(1, 2) == -3 );
+    REQUIRE( matrix(2, 2) ==  5 );
+    REQUIRE( matrix(0, 3) == -7 );
+    REQUIRE( matrix(1, 3) == -3 );
+    REQUIRE( matrix(2, 3) ==  5 );
 }
 
 TEST_CASE("Eigen: Array complex General as MatrixXcd",
