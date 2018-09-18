@@ -71,23 +71,23 @@ TEST_CASE("Eigen: Array real General as MatrixXi",
 
     Matrix matrix;
 
-    Reader::ReadFromFile(matrix, "./data/array_real_general_3_4_int.mtx");
+    Reader::ReadFromFile(matrix, "./data/array_integer_general_3_4.mtx");
 
     REQUIRE( matrix.rows() == 3 );
     REQUIRE( matrix.cols() == 4 );
 
-    REQUIRE( matrix(0, 0) == -1 );
-    REQUIRE( matrix(1, 0) ==  2 );
-    REQUIRE( matrix(2, 0) == -7 );
-    REQUIRE( matrix(0, 1) == -2 );
-    REQUIRE( matrix(1, 1) ==  9 );
-    REQUIRE( matrix(2, 1) ==  4 );
-    REQUIRE( matrix(0, 2) ==  9 );
-    REQUIRE( matrix(1, 2) == -3 );
-    REQUIRE( matrix(2, 2) ==  5 );
-    REQUIRE( matrix(0, 3) == -7 );
-    REQUIRE( matrix(1, 3) == -3 );
-    REQUIRE( matrix(2, 3) ==  5 );
+    REQUIRE( matrix(0, 0) == -9 );
+    REQUIRE( matrix(1, 0) == -5 );
+    REQUIRE( matrix(2, 0) == -8 );
+    REQUIRE( matrix(0, 1) == -1 );
+    REQUIRE( matrix(1, 1) ==  5 );
+    REQUIRE( matrix(2, 1) ==  1 );
+    REQUIRE( matrix(0, 2) == -6 );
+    REQUIRE( matrix(1, 2) ==  7 );
+    REQUIRE( matrix(2, 2) == -8 );
+    REQUIRE( matrix(0, 3) ==  9 );
+    REQUIRE( matrix(1, 3) ==  3 );
+    REQUIRE( matrix(2, 3) ==  3 );
 }
 
 TEST_CASE("Eigen: Array complex General as MatrixXcd",
