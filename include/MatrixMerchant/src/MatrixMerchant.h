@@ -3,7 +3,6 @@
 #include <complex>
 #include <fstream>
 #include <iomanip>
-#include <iostream>
 #include <istream>
 #include <limits>
 
@@ -313,10 +312,6 @@ public:
                 + "' invalid");
         }
 
-        std::cout << "storage:  " << storage << std::endl;
-        std::cout << "type:     " << type << std::endl;
-        std::cout << "symmetry: " << symmetry << std::endl;
-
         // --- read matrix size
 
         GetDataLine(input, line);
@@ -346,10 +341,6 @@ public:
         if (storage == "coordinate" && !TryParse(tokens[2], nonZeros)) {
             throw std::runtime_error("MatrixMarket matrix size invalid");
         }
-
-        std::cout << "rows:     " << rows << std::endl;
-        std::cout << "cols:     " << cols << std::endl;
-        std::cout << "nonZeros: " << nonZeros << std::endl;
 
         // --- read entries
 
