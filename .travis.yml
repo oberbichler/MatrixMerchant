@@ -15,7 +15,7 @@ cache:
 
 before_script:
   - wget http://bitbucket.org/eigen/eigen/get/3.3.4.tar.bz2 -O - | tar -xj -C $HOME
-  - wget https://github.com/boostorg/boost/archive/boost-1.67.0.tar.gz -O - | tar -xj -C $HOME
+  - wget https://github.com/boostorg/boost/archive/boost-1.67.0.tar.gz -O - | tar -xz -C $HOME
 
 script:
   - mkdir build
