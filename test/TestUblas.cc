@@ -131,3 +131,63 @@ TEST_CASE("Ublas: Array real general as ublas::matrix<std::complex<double>>",
     REQUIRE( matrix(2, 3).real() == -9.8304020948925732 );
     REQUIRE( matrix(2, 3).imag() ==  4.5726971397846796 );
 }
+
+TEST_CASE("Ublas: Array real General as compressed_matrix",
+    "[Ublas][Reader][Coordinate][Real][General]")
+{
+    using Matrix = boost::numeric::ublas::compressed_matrix<double>;
+    using Reader = MatrixMerchant::Reader;
+
+    Matrix matrix;
+
+    Reader::ReadFromFile(matrix, "./data/coordinate_real_general_3_4_9.mtx");
+
+    REQUIRE( matrix.size1() == 3 );
+    REQUIRE( matrix.size2() == 4 );
+    REQUIRE( matrix.nnz() == 9 );
+
+    REQUIRE( matrix(0, 0) ==  4.1845817867522186E+00 );
+    REQUIRE( matrix(0, 2) == -2.0926889264634454E+00 );
+    REQUIRE( matrix(0, 3) == -7.8316889739440043E-01 );
+    REQUIRE( matrix(1, 0) ==  5.0906727488171413E+00 );
+    REQUIRE( matrix(1, 2) == -5.1864402160097285E+00 );
+    REQUIRE( matrix(1, 3) ==  2.0235820378239495E+00 );
+    REQUIRE( matrix(2, 0) ==  8.1418916746105481E+00 );
+    REQUIRE( matrix(2, 1) == -6.8545086364543906E-01 );
+    REQUIRE( matrix(2, 2) ==  3.2589429995407642E+00 );
+}
+
+TEST_CASE("Ublas: Array complex General as compressed_matrix",
+    "[Ublas][Reader][Coordinate][Complex][General]")
+{
+    using Matrix = boost::numeric::ublas::compressed_matrix<std::complex<double>>;
+    using Reader = MatrixMerchant::Reader;
+
+    Matrix matrix;
+
+    Reader::ReadFromFile(matrix, "./data/coordinate_complex_general_3_4_9.mtx");
+
+    REQUIRE( matrix.size1() == 3 );
+    REQUIRE( matrix.size2() == 4 );
+    REQUIRE( matrix.nnz() == 9 );
+
+    REQUIRE( matrix(0, 0).ref().real() ==  4.1845817867522186E+00 );
+    REQUIRE( matrix(0, 2).ref().real() == -2.0926889264634454E+00 );
+    REQUIRE( matrix(0, 3).ref().real() == -7.8316889739440043E-01 );
+    REQUIRE( matrix(1, 0).ref().real() ==  5.0906727488171413E+00 );
+    REQUIRE( matrix(1, 2).ref().real() == -5.1864402160097285E+00 );
+    REQUIRE( matrix(1, 3).ref().real() ==  2.0235820378239495E+00 );
+    REQUIRE( matrix(2, 0).ref().real() ==  8.1418916746105481E+00 );
+    REQUIRE( matrix(2, 1).ref().real() == -6.8545086364543906E-01 );
+    REQUIRE( matrix(2, 2).ref().real() ==  3.2589429995407642E+00 );
+
+    REQUIRE( matrix(0, 0).ref().imag() == -5.6342960984894290E+00 );
+    REQUIRE( matrix(0, 2).ref().imag() ==  9.3221877373570479E+00 );
+    REQUIRE( matrix(0, 3).ref().imag() ==  8.8204750842629380E+00 );
+    REQUIRE( matrix(1, 0).ref().imag() == -3.2836584301992531E+00 );
+    REQUIRE( matrix(1, 2).ref().imag() == -3.8327239189300002E+00 );
+    REQUIRE( matrix(1, 3).ref().imag() ==  9.0422589646977940E+00 );
+    REQUIRE( matrix(2, 0).ref().imag() ==  4.5922540786118944E+00 );
+    REQUIRE( matrix(2, 1).ref().imag() == -8.3301296714039275E+00 );
+    REQUIRE( matrix(2, 2).ref().imag() == -1.6652693449057949E+00 );
+}
