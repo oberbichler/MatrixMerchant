@@ -12,6 +12,7 @@ compiler:
 cache:
   directories:
     - $HOME/eigen-eigen-5a0156e40feb
+    - $HOME/boost_1_67_0
 
 before_script:
   - wget http://bitbucket.org/eigen/eigen/get/3.3.4.tar.bz2 -O - | tar -xj -C $HOME
