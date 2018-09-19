@@ -16,12 +16,11 @@ cache:
 before_script:
   - wget http://bitbucket.org/eigen/eigen/get/3.3.4.tar.bz2 -O - | tar -xj -C $HOME
   - wget https://github.com/boostorg/boost/archive/boost-1.67.0.tar.gz -O - | tar -xz -C $HOME
-  - ls $HOME
 
 script:
   - mkdir build
   - cd build
-  - cmake .. -DEIGEN3_ROOT="$HOME/eigen-eigen-5a0156e40feb" -DBOOST_ROOT="$HOME/boost-1.67.0"
+  - cmake .. -DEIGEN3_ROOT="$HOME/eigen-eigen-5a0156e40feb" -DBOOST_ROOT="$HOME/boost-boost-1.67.0"
   - cmake --build .
   - cd ..
   - ./build/test/run_tests
