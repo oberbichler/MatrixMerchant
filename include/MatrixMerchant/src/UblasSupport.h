@@ -179,7 +179,7 @@ struct MatrixBuilder<boost::numeric::ublas::compressed_matrix<TScalar>>
         const std::size_t& cols,
         const std::size_t& nonZeros)
     {
-        m_matrix.resize(rows, cols);
+        m_matrix.resize(rows, cols, false);
         m_matrix.reserve(nonZeros);
     }
 
