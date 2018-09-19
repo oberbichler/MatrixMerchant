@@ -20,7 +20,7 @@ before_script:
 script:
   - mkdir build
   - cd build
-  - cmake .. -DEIGEN3_ROOT="$HOME/eigen-eigen-5a0156e40feb" -DBOOST_ROOT="$HOME/boost-boost-1.67.0"
+  - cmake .. -DEIGEN3_ROOT="$HOME/eigen-eigen-5a0156e40feb" -DBOOST_ROOT="$HOME/boost_1_67_0"
   - cmake --build .
   - cd ..
   - ./build/test/run_tests
