@@ -130,3 +130,38 @@ TEST_CASE("AMatrix: Array complex General as MatrixXcd",
     REQUIRE(matrix(2, 3).real() == -9.8304020948925732);
     REQUIRE(matrix(2, 3).imag() == 4.5726971397846796);
 }
+
+TEST_CASE("AMatrix: Write MatrixXd"
+    "[AMatrix][Writer][Array][Real][General]")
+{
+    using Scalar = double;
+    using Matrix = AMatrix::Matrix<Scalar, AMatrix::dynamic, AMatrix::dynamic>;
+    using Reader = MatrixMerchant::Reader;
+    using Writer = MatrixMerchant::Writer;
+    
+    Matrix matrix(3, 4);
+
+    matrix(0, 0) = -1.7874030527951525;
+    matrix(1, 0) = 2.8017662727841071;
+    matrix(2, 0) = -7.3458785314655870;
+    matrix(0, 1) = -2.4010370783465085;
+    matrix(1, 1) = 9.1842295135688801;
+    matrix(2, 1) = 4.4479713459839871;
+    matrix(0, 2) = 9.0628790375549286;
+    matrix(1, 2) = -3.7799237041860287;
+    matrix(2, 2) = 5.5080306442042399;
+    matrix(0, 3) = -7.3354743327476690;
+    matrix(1, 3) = -3.3000793596121447;
+    matrix(2, 3) = 5.7081113423916179;
+
+    std::stringstream act_stream;
+    Writer::WriteToStream(matrix, false, act_stream);
+    std::string act = act_stream.str();
+
+
+    std::ifstream exp_stream("./data/array_real_general_3_4.mtx");
+    std::string exp((std::istreambuf_iterator<char>(exp_stream)),
+        std::istreambuf_iterator<char>());
+
+    CHECK(act == exp);
+}
