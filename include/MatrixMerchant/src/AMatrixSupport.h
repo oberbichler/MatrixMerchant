@@ -70,21 +70,21 @@ struct MatrixBuilder<AMatrix::Matrix<TScalar, AMatrix::dynamic, AMatrix::dynamic
     Rows(
         const MatrixType& matrix)
     {
-        return matrix.rows();
+        return matrix.size1();
     }
 
     static inline std::size_t
     Cols(
         const MatrixType& matrix)
     {
-        return matrix.cols();
+        return matrix.size2();
     }
 
     static inline std::size_t
     NonZeros(
         const MatrixType& matrix)
     {
-        return matrix.rows() * matrix.cols();
+        return matrix.size1() * matrix.size2();
     }
 };
 
