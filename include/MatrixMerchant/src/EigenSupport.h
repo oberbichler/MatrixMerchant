@@ -98,6 +98,8 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, Eigen::Dynamic, 1>>
 
     MatrixType& m_matrix;
 
+    bool is_rowvector = false;
+
     MatrixBuilder(
         MatrixType& matrix)
         : m_matrix(matrix)
@@ -110,7 +112,16 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, Eigen::Dynamic, 1>>
         const std::size_t& cols,
         const std::size_t& nonZeros)
     {
-        m_matrix.resize(rows, cols);
+        if (rows == 1) {
+            is_rowvector = true;
+            m_matrix.resize(cols);
+        } else if (cols == 1) {
+            is_rowvector = false;
+            m_matrix.resize(rows);
+        } else {
+            throw new std::runtime_error("Not a vector");
+        }
+
         m_matrix.setZero();
     }
 
@@ -119,13 +130,25 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, Eigen::Dynamic, 1>>
         const std::size_t& rows,
         const std::size_t& cols)
     {
-        if (rows != 1 && cols != 1) {
-            // FIXME exception
+        if (rows == 1) {
+            is_rowvector = true;
+            m_matrix.resize(cols);
+        } else if (cols == 1) {
+            is_rowvector = false;
+            m_matrix.resize(rows);
+        } else {
+            throw std::runtime_error("Not a vector");
         }
+    }
 
-        std::size_t size = std::max(rows, cols);
+    void
+    EndCoordinate()
+    {
+    }
 
-        m_matrix.resize(size, 1);
+    void
+    EndArray()
+    {
     }
 
     void
@@ -134,13 +157,11 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, Eigen::Dynamic, 1>>
         const std::size_t& col,
         const ScalarType& value)
     {
-        if (row != 1 && col != 1) {
-            // FIXME exception
+        if (is_rowvector) {
+            m_matrix[col] = value;
+        } else {
+            m_matrix[row] = value;
         }
-
-        std::size_t index = std::max(row, col);
-
-        m_matrix[index] = value;
     }
 
     const ScalarType&
@@ -148,13 +169,32 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, Eigen::Dynamic, 1>>
         const std::size_t& row,
         const std::size_t& col)
     {
-        if (row != 1 && col != 1) {
-            // FIXME exception
+        if (is_rowvector) {
+            return m_matrix[col];
+        } else {
+            return m_matrix[row];
         }
+    }
 
-        std::size_t index = std::max(row, col);
+    static inline std::size_t
+    Rows(
+        const MatrixType& matrix)
+    {
+        return matrix.rows();
+    }
 
-        return m_matrix[index];
+    static inline std::size_t
+    Cols(
+        const MatrixType& matrix)
+    {
+        return matrix.cols();
+    }
+
+    static inline std::size_t
+    NonZeros(
+        const MatrixType& matrix)
+    {
+        return matrix.rows() * matrix.cols();
     }
 };
 
@@ -167,6 +207,8 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, 1, Eigen::Dynamic>>
 
     MatrixType& m_matrix;
 
+    bool is_rowvector = false;
+
     MatrixBuilder(
         MatrixType& matrix)
         : m_matrix(matrix)
@@ -179,7 +221,16 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, 1, Eigen::Dynamic>>
         const std::size_t& cols,
         const std::size_t& nonZeros)
     {
-        m_matrix.resize(rows, cols);
+        if (rows == 1) {
+            is_rowvector = true;
+            m_matrix.resize(cols);
+        } else if (cols == 1) {
+            is_rowvector = false;
+            m_matrix.resize(rows);
+        } else {
+            throw new std::runtime_error("Not a vector");
+        }
+
         m_matrix.setZero();
     }
 
@@ -188,13 +239,25 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, 1, Eigen::Dynamic>>
         const std::size_t& rows,
         const std::size_t& cols)
     {
-        if (rows != 1 && cols != 1) {
-            // FIXME exception
+        if (rows == 1) {
+            is_rowvector = true;
+            m_matrix.resize(cols);
+        } else if (cols == 1) {
+            is_rowvector = false;
+            m_matrix.resize(rows);
+        } else {
+            throw std::runtime_error("Not a vector");
         }
+    }
 
-        std::size_t size = std::max(rows, cols);
+    void
+    EndCoordinate()
+    {
+    }
 
-        m_matrix.resize(1, size);
+    void
+    EndArray()
+    {
     }
 
     void
@@ -203,13 +266,11 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, 1, Eigen::Dynamic>>
         const std::size_t& col,
         const ScalarType& value)
     {
-        if (row != 1 && col != 1) {
-            // FIXME exception
+        if (is_rowvector) {
+            m_matrix[col] = value;
+        } else {
+            m_matrix[row] = value;
         }
-
-        std::size_t index = std::max(row, col);
-
-        m_matrix[index] = value;
     }
 
     const ScalarType&
@@ -217,13 +278,32 @@ struct MatrixBuilder<Eigen::Matrix<TScalar, 1, Eigen::Dynamic>>
         const std::size_t& row,
         const std::size_t& col)
     {
-        if (row != 1 && col != 1) {
-            // FIXME exception
+        if (is_rowvector) {
+            return m_matrix[col];
+        } else {
+            return m_matrix[row];
         }
+    }
 
-        std::size_t index = std::max(row, col);
+    static inline std::size_t
+    Rows(
+        const MatrixType& matrix)
+    {
+        return matrix.rows();
+    }
 
-        return m_matrix[index];
+    static inline std::size_t
+    Cols(
+        const MatrixType& matrix)
+    {
+        return matrix.cols();
+    }
+
+    static inline std::size_t
+    NonZeros(
+        const MatrixType& matrix)
+    {
+        return matrix.rows() * matrix.cols();
     }
 };
 
