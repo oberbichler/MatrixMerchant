@@ -90,6 +90,36 @@ TEST_CASE("AMatrix: array integer general as Matrix<int>",
     REQUIRE( matrix(2, 3) ==  3 );
 }
 
+TEST_CASE("AMatrix: array integer general as Vector<double>",
+    "[AMatrix][Reader]")
+{
+    using Matrix = AMatrix::Vector<double, AMatrix::dynamic>;
+    using Reader = MatrixMerchant::Reader;
+
+    Matrix matrix(0, 0);
+
+    SECTION( "Column vector" ) {
+        Reader::ReadFromFile(matrix, "./data/array_real_general_3_1.mtx");
+
+        REQUIRE( matrix.size() == 3 );
+
+        REQUIRE( matrix[0] == -1.7874030527951525);
+        REQUIRE( matrix[1] ==  2.8017662727841071);
+        REQUIRE( matrix[2] == -7.3458785314655870);
+    }
+
+    SECTION( "Row vector" ) {
+        Reader::ReadFromFile(matrix, "./data/array_real_general_1_4.mtx");
+
+        REQUIRE( matrix.size() == 4 );
+
+        REQUIRE( matrix[0] == -1.7874030527951525);
+        REQUIRE( matrix[1] == -2.4010370783465085);
+        REQUIRE( matrix[2] ==  9.0628790375549286);
+        REQUIRE( matrix[3] == -7.3354743327476690);
+    }
+}
+
 TEST_CASE("AMatrix: Array complex General as MatrixXcd",
     "[AMatrix][Reader][Array][Complex][General]")
 {
