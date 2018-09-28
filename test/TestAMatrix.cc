@@ -9,8 +9,8 @@
 #include <sstream>
 #include <streambuf>
 
-TEST_CASE("AMatrix: Array real General as MatrixXd",
-    "[AMatrix][Reader][Array][Real][General][Double]")
+TEST_CASE("AMatrix: array real general as Matrix<double>",
+    "[AMatrix][Reader]")
 {
     using Matrix = AMatrix::Matrix<double, AMatrix::dynamic, AMatrix::dynamic>;
     using Reader = MatrixMerchant::Reader;
@@ -36,8 +36,8 @@ TEST_CASE("AMatrix: Array real General as MatrixXd",
     REQUIRE(matrix(2, 3) == 5.7081113423916179);
 }
 
-TEST_CASE("AMatrix: Array real General as MatrixXf",
-    "[AMatrix][Reader][Array][Real][General][Float]")
+TEST_CASE("AMatrix: array real general as Matrix<float>",
+    "[AMatrix][Reader]")
 {
     using Matrix = AMatrix::Matrix<float, AMatrix::dynamic, AMatrix::dynamic>;
     using Reader = MatrixMerchant::Reader;
@@ -63,8 +63,8 @@ TEST_CASE("AMatrix: Array real General as MatrixXf",
     REQUIRE( matrix(2, 3) ==  5.7081113423916179f );
 }
 
-TEST_CASE("AMatrix: Array real General as MatrixXi",
-    "[AMatrix][Reader][Array][Real][General][Integer]")
+TEST_CASE("AMatrix: array integer general as Matrix<int>",
+    "[AMatrix][Reader]")
 {
     using Matrix = AMatrix::Matrix<int, AMatrix::dynamic, AMatrix::dynamic>;
     using Reader = MatrixMerchant::Reader;
