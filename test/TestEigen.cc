@@ -156,6 +156,36 @@ TEST_CASE("Eigen: Array real General as SparseMatrix",
     REQUIRE( matrix.coeff(2, 2) ==  3.2589429995407642E+00 );
 }
 
+TEST_CASE("Eigen: Array real general as ColumnVector<double>",
+    "[AMatrix][Reader]")
+{
+    using Vector = Eigen::Matrix<double, Eigen::Dynamic, 1>;
+    using Reader = MatrixMerchant::Reader;
+
+    Vector vector;
+
+    SECTION( "Column vector" ) {
+        Reader::ReadFromFile(vector, "./data/array_real_general_3_1.mtx");
+
+        REQUIRE( vector.size() == 3 );
+
+        REQUIRE( vector[0] == -1.7874030527951525);
+        REQUIRE( vector[1] ==  2.8017662727841071);
+        REQUIRE( vector[2] == -7.3458785314655870);
+    }
+
+    SECTION( "Row vector" ) {
+        Reader::ReadFromFile(vector, "./data/array_real_general_1_4.mtx");
+
+        REQUIRE( vector.size() == 4 );
+
+        REQUIRE( vector[0] == -1.7874030527951525);
+        REQUIRE( vector[1] == -2.4010370783465085);
+        REQUIRE( vector[2] ==  9.0628790375549286);
+        REQUIRE( vector[3] == -7.3354743327476690);
+    }
+}
+
 TEST_CASE("Eigen: Array complex General as SparseMatrix",
     "[Eigen][Reader][Coordinate][Complex][General]")
 {
@@ -198,7 +228,7 @@ TEST_CASE("Eigen: Write MatrixXd"
     using Matrix = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
     using Reader = MatrixMerchant::Reader;
     using Writer = MatrixMerchant::Writer;
-    
+
     Matrix matrix(3, 4);
 
     matrix(0, 0) = -1.7874030527951525;
