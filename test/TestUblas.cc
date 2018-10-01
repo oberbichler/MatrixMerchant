@@ -10,8 +10,8 @@
 #include <sstream>
 #include <streambuf>
 
-TEST_CASE("Ublas: Array real general as ublas::matrix<double>",
-    "[Ublas][Reader][Array][Real][General][Double]")
+TEST_CASE("Ublas: Array real general as matrix<double>",
+    "[Ublas][Reader]")
 {
     using Matrix = boost::numeric::ublas::matrix<double>;
     using Reader = MatrixMerchant::Reader;
@@ -37,8 +37,8 @@ TEST_CASE("Ublas: Array real general as ublas::matrix<double>",
     REQUIRE( matrix(2, 3) ==  5.7081113423916179 );
 }
 
-TEST_CASE("Ublas: Array real general as ublas::matrix<float>",
-    "[Ublas][Reader][Array][Real][General][Float]")
+TEST_CASE("Ublas: Array real general as matrix<float>",
+    "[Ublas][Reader]")
 {
     using Matrix = boost::numeric::ublas::matrix<float>;
     using Reader = MatrixMerchant::Reader;
@@ -64,8 +64,8 @@ TEST_CASE("Ublas: Array real general as ublas::matrix<float>",
     REQUIRE( matrix(2, 3) ==  5.7081113423916179f );
 }
 
-TEST_CASE("Ublas: Array real general as ublas::matrix<int>",
-    "[Ublas][Reader][Array][Integer][General]")
+TEST_CASE("Ublas: Array real general as matrix<int>",
+    "[Ublas][Reader]")
 {
     using Matrix = boost::numeric::ublas::matrix<int>;
     using Reader = MatrixMerchant::Reader;
@@ -91,8 +91,38 @@ TEST_CASE("Ublas: Array real general as ublas::matrix<int>",
     REQUIRE( matrix(2, 3) ==  3 );
 }
 
-TEST_CASE("Ublas: Array real general as ublas::matrix<std::complex<double>>",
-    "[Ublas][Reader][Array][Complex][General]")
+TEST_CASE("Ublas: array integer general as vector<double>",
+    "[AMatrix][Reader]")
+{
+    using Vector = boost::numeric::ublas::vector<double>;
+    using Reader = MatrixMerchant::Reader;
+
+    Vector vector(0, 0);
+
+    SECTION( "Column vector" ) {
+        Reader::ReadFromFile(vector, "./data/array_real_general_3_1.mtx");
+
+        REQUIRE( vector.size() == 3 );
+
+        REQUIRE( vector[0] == -1.7874030527951525);
+        REQUIRE( vector[1] ==  2.8017662727841071);
+        REQUIRE( vector[2] == -7.3458785314655870);
+    }
+
+    SECTION( "Row vector" ) {
+        Reader::ReadFromFile(vector, "./data/array_real_general_1_4.mtx");
+
+        REQUIRE( vector.size() == 4 );
+
+        REQUIRE( vector[0] == -1.7874030527951525);
+        REQUIRE( vector[1] == -2.4010370783465085);
+        REQUIRE( vector[2] ==  9.0628790375549286);
+        REQUIRE( vector[3] == -7.3354743327476690);
+    }
+}
+
+TEST_CASE("Ublas: Array real general as matrix<std::complex<double>>",
+    "[Ublas][Reader]")
 {
     using Scalar = double;
     using Complex = std::complex<Scalar>;
@@ -133,7 +163,7 @@ TEST_CASE("Ublas: Array real general as ublas::matrix<std::complex<double>>",
 }
 
 TEST_CASE("Ublas: Array real General as compressed_matrix",
-    "[Ublas][Reader][Coordinate][Real][General]")
+    "[Ublas][Reader]")
 {
     using Matrix = boost::numeric::ublas::compressed_matrix<double>;
     using Reader = MatrixMerchant::Reader;
@@ -158,7 +188,7 @@ TEST_CASE("Ublas: Array real General as compressed_matrix",
 }
 
 TEST_CASE("Ublas: Array complex General as compressed_matrix",
-    "[Ublas][Reader][Coordinate][Complex][General]")
+    "[Ublas][Reader]")
 {
     using Matrix = boost::numeric::ublas::compressed_matrix<std::complex<double>>;
     using Reader = MatrixMerchant::Reader;
